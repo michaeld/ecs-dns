@@ -22,7 +22,7 @@ Prometheus Configuration
 - job_name: ecs/production1/metrics
   dns_sd_configs:
   - names:
-    - devops-ref-app.production1.ecs
+    - devops-ref-app.devops-ref-app.production1.ecs
     type: SRV
   relabel_configs:
   - source_labels: [__meta_dns_name]
