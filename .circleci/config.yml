@@ -7,7 +7,11 @@ jobs:
 
     steps:
       - checkout
-      - run: go get -d
+      - run:
+          name: install dependencies
+          command: |
+            go get github.com/golang/dep/cmd/dep
+            dep ensure
       - run: go test github.com/michaeld/ecs-dns/lib
       - run: make
 
