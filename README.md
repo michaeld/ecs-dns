@@ -13,7 +13,7 @@ Build Status [![CircleCI](https://circleci.com/gh/michaeld/ecs-dns/tree/master.s
 Run Binary
 ```sh
 ecs-dns daemon \
---domain service.alias \
+--domain production1.ecs \
 --zone XYZABCXYZABCXYZABC \
 --interval 10 \ 
 --logtostderr
@@ -46,6 +46,32 @@ RESOURCERECORDS	1 1 24199 10.1.93.53
 RESOURCERECORDS	1 1 24199 10.1.129.10
 RESOURCERECORDS	1 1 24199 10.1.27.80
 RESOURCERECORDS	1 1 24199 10.1.83.32
+```
+
+Dig Example
+```sh
+
+$ dig devops-ref-app.devops-ref-app.production1.ecs SRV
+
+; <<>> DiG 9.9.5-3ubuntu0.14-Ubuntu <<>> devops-ref-app.devops-ref-app.production1.ecs SRV
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 1623
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;devops-ref-app.devops-ref-app.production1.ecs. IN SRV
+
+;; ANSWER SECTION:
+devops-ref-app.devops-ref-app.production1.ecs. 0 IN SRV 1 1 49648 10.1.22.107.
+
+;; Query time: 2 msec
+;; SERVER: 10.1.0.2#53(10.1.0.2)
+;; WHEN: Wed Aug 15 18:10:44 UTC 2018
+;; MSG SIZE  rcvd: 112
+
 ```
 
 ## Installation
