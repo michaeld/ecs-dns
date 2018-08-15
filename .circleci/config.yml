@@ -7,13 +7,18 @@ jobs:
 
     steps:
       - checkout
+      - restore_cache:
+          key: build-cache-{{ checksum "Gopkg.lock" }}
       - run:
           name: install dependencies
           command: |
             go get github.com/golang/dep/cmd/dep
             dep ensure
       - run: go test github.com/michaeld/ecs-dns/lib
+      - save_cache:
+          key: build-cache-{{ checksum "Gopkg.lock" }}
+          paths:
+            - ./vendor
       - run: make
-
       - store_artifacts:
           path: /go/src/github.com/michaeld/ecs-dns/bin
