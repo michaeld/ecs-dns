@@ -1,0 +1,5 @@
+vendor/
+.vscode/
+bin/
+config.yaml
+.go/

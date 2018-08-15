@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/github.com/michaeld/ecs-dns
+
+    steps:
+      - checkout
+      - run: go get -d
+      - run: make
+
+      - store_artifacts:
+          path: /go/src/github.com/michaeld/ecs-dns/bin
