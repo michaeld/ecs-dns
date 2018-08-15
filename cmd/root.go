@@ -72,7 +72,7 @@ func init() {
 		glog.Info("Using config file:", viper.ConfigFileUsed())
 	}
 
-	glog.Info(viper.AllSettings())
+	glog.V(1).Info(viper.AllSettings())
 
 	configuration = &lib.Config{
 		Region:   viper.GetString("region"),

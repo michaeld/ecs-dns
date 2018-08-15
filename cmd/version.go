@@ -1,4 +1,4 @@
-// Copyright © 2018 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2018 Michael Dumont <michaeldumont@gmail.com>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,22 +15,22 @@
 package cmd
 
 import (
-	"github.com/michaeld/ecs-dns/lib"
+	"github.com/golang/glog"
 	"github.com/spf13/cobra"
 )
 
-// removeCmd represents the remove command
-var removeCmd = &cobra.Command{
-	Use:   "remove",
-	Short: "remove all managed SRV records",
+// GitSHA is set at build time with "-ldflags -X cmd.GitSHA=xxx", where const is not supported.
+var GitSHA = ""
+
+// versionCmd represents the version command
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Output version information",
 	Run: func(cmd *cobra.Command, args []string) {
-
-		r := lib.Route53{Domain: configuration.Domain, HostedZoneID: configuration.Zone}
-
-		r.RemoveAllManagedRecords()
+		glog.Infof("Git SHA: %s", GitSHA)
 	},
 }
 
 func init() {
-	RootCmd.AddCommand(removeCmd)
+	RootCmd.AddCommand(versionCmd)
 }

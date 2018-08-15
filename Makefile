@@ -16,7 +16,7 @@ CURRENT_DIR=$(shell pwd)
 BUILD_DIR_LINK=$(shell readlink ${BUILD_DIR})
 
 # Setup the -ldflags option for go build here, interpolate the variable values
-LDFLAGS = -ldflags "-X main.COMMIT=${COMMIT} -X main.BRANCH=${BRANCH}"
+LDFLAGS = -ldflags "-X github.com/michaeld/ecs-dns/cmd.GitSHA=${COMMIT}"
 
 # Build the project
 all: clean linux darwin
