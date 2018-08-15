@@ -1,6 +1,8 @@
 Service Discovery with Amazon ECS, Routes53, and Prometheus
 ---
 
+Build Status [![CircleCI](https://circleci.com/gh/michaeld/ecs-dns/tree/master.svg?style=svg)](https://circleci.com/gh/michaeld/ecs-dns/tree/master)
+
 ## Goals
 
 - Automatically register and deregister ECS Services
