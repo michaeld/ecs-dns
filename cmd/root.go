@@ -60,6 +60,9 @@ func init() {
 	pflag.String("region", "us-east-1", "ecs cluster region")
 	pflag.String("cluster", "", "ecs cluster name")
 
+	//set logging to stderr by default
+	flag.Set("logtostderr", "true")
+
 	viper.SetDefault("interval", 10)
 
 	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
