@@ -65,7 +65,7 @@ RESOURCERECORDS	1 1 24199 10.1.83.32
 ## Development
 
 ### Requirements
-- Go 1.9+
+- Go 1.10+
 - dep 0.4+
 
 ### Build
