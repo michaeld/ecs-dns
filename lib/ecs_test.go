@@ -100,7 +100,7 @@ func TestGetTargets(t *testing.T) {
 		t.Fail()
 	}
 
-	assert.Equal(t, targets[Group("group1")][Service("container1")][0].Name, "container1")
+	assert.Equal(t, targets["group1"]["container1"][0].Name, "container1")
 }
 
 func TestGetHosts(t *testing.T) {

@@ -23,14 +23,8 @@ type Target struct {
 	Group     string
 }
 
-//Group represents the container group
-type Group string
-
-//Service represents the service within the Group
-type Service string
-
 //Targets stores targets grouped by service and container
-type Targets map[Group]map[Service][]*Target
+type Targets map[string]map[string][]*Target
 
 //GetTargets combines host and container information to produce the scrapeable targets
 func (e *ECSCluster) GetTargets() (s Targets, err error) {
@@ -60,7 +54,7 @@ func (e *ECSCluster) GetTargets() (s Targets, err error) {
 			continue
 		}
 
-		group := Group(strings.Split(*task.Group, ":")[1])
+		group := strings.Split(*task.Group, ":")[1]
 
 		for _, c := range task.Containers {
 
@@ -76,10 +70,10 @@ func (e *ECSCluster) GetTargets() (s Targets, err error) {
 			}
 
 			if s[group] == nil {
-				s[group] = make(map[Service][]*Target)
+				s[group] = make(map[string][]*Target)
 			}
 
-			s[group][Service(*c.Name)] = append(s[group][Service(*c.Name)], target)
+			s[group][*c.Name] = append(s[group][*c.Name], target)
 		}
 	}
 
@@ -140,6 +134,7 @@ func (e *ECSCluster) getTasks() ([]*ecs.Task, error) {
 	return *e.tasks, err
 }
 
+//ECSApi contains the functions necessary to interact with ECS
 type ECSApi interface {
 	DescribeContainerInstances(*ecs.DescribeContainerInstancesInput) (*ecs.DescribeContainerInstancesOutput, error)
 	ListTasksPages(*ecs.ListTasksInput, func(*ecs.ListTasksOutput, bool) bool) error
@@ -147,7 +142,8 @@ type ECSApi interface {
 	DescribeTasks(*ecs.DescribeTasksInput) (*ecs.DescribeTasksOutput, error)
 }
 
-type EC2API interface {
+//EC2Api contains the function necessary to interact with EC2
+type EC2Api interface {
 	DescribeInstancesPages(*ec2.DescribeInstancesInput, func(*ec2.DescribeInstancesOutput, bool) bool) error
 }
 
@@ -155,7 +151,7 @@ type EC2API interface {
 type ECSCluster struct {
 	Region, Cluster      string
 	ECSClient            ECSApi
-	EC2Client            EC2API
+	EC2Client            EC2Api
 	hosts                *map[string]*ecsHost
 	tasks                *[]*ecs.Task
 	hostsHash, tasksHash uint64

@@ -73,7 +73,7 @@ func (r *Route53) Prune(targets Targets) (int, error) {
 			continue
 		}
 
-		_, found := targets[Group(i[1])][Service(i[2])]
+		_, found := targets[i[1]][i[2]]
 
 		if !found {
 			removes = append(removes, v)
